@@ -1424,6 +1424,7 @@ function askProductInterest(selectedQuestion) {
 function toggleDropdown() {
     const dropdownContent = document.getElementById("dropdown-content");
     dropdownContent.style.display = dropdownContent.style.display === "none" || dropdownContent.style.display === "" ? "block" : "none";
+    scrollToBottom(); // Ensure scroll to bottom after toggling the dropdown
 }
 
 function handleSubmitProductInterest() {
@@ -1435,6 +1436,7 @@ function handleSubmitProductInterest() {
     if (selectedProducts.length === 0) {
         const messageTime = new Date();
         appendMessageWithImageAndTime("Please select at least one product before submitting.", 'bot-message', messageTime, true);
+        scrollToBottom(); // Ensure scroll to bottom if no option selected and message is shown
     } else {
         const submittedProductsMessage = `${selectedProducts.join(', ')}`;
         appendSubmittedMessage(submittedProductsMessage, 'user-message', true); // Pass true to show undo button
@@ -1442,11 +1444,12 @@ function handleSubmitProductInterest() {
         questionStack[questionStack.length - 1].answer = selectedProducts; // Update the last question stack with answer
 
         document.getElementById('product-options').style.display = 'none'; // Hide options after submission
-        scrollToBottom();
-        
+        scrollToBottom(); // Ensure scroll to bottom after hiding options
+
         setTimeout(() => askRoleAtLawFirm(), 1000); // Proceed to next question
     }
 }
+
 
 
 
